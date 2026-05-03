@@ -1,0 +1,34 @@
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\bin\Debug\net10.0\appsettings.Development.json
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\bin\Debug\net10.0\appsettings.json
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\bin\Debug\net10.0\Task manager.staticwebassets.endpoints.json
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\bin\Debug\net10.0\Task manager.exe
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\bin\Debug\net10.0\Task manager.deps.json
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\bin\Debug\net10.0\Task manager.runtimeconfig.json
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\bin\Debug\net10.0\Task manager.dll
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\bin\Debug\net10.0\Task manager.pdb
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\bin\Debug\net10.0\Microsoft.OpenApi.dll
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\Task manager.csproj.AssemblyReference.cache
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\rpswa.dswa.cache.json
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\Task manager.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\Task manager.AssemblyInfoInputs.cache
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\Task manager.AssemblyInfo.cs
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\Task manager.csproj.CoreCompileInputs.cache
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\Task manager.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\Task manager.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\Task manager.sourcelink.json
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\rjimswa.dswa.cache.json
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\scopedcss\bundle\Task manager.styles.css
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\staticwebassets.build.json
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\staticwebassets.build.json.cache
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\staticwebassets.development.json
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\staticwebassets.build.endpoints.json
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\swae.build.ex.cache
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\Task man.F88F0852.Up2Date
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\Task manager.dll
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\refint\Task manager.dll
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\Task manager.pdb
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\Task manager.genruntimeconfig.cache
+C:\Users\david\Documents\GitHub\Task-PM-API\Task manager\obj\Debug\net10.0\ref\Task manager.dll
