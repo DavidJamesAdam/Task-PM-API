@@ -6,6 +6,7 @@ namespace Task_manager.Models;
 public class Projects
 {
     [Column("id")]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
     [Column("project_name")]
     public required string ProjectName { get; set;}

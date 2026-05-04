@@ -11,23 +11,23 @@ namespace Task_manager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TaskManagerController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly TaskContext _context;
 
-        public TaskManagerController(TaskContext context)
+        public UsersController(TaskContext context)
         {
             _context = context;
         }
 
-        // GET: api/TaskManager
+        // GET: api/Users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Users>>> GetUsers()
         {
             return await _context.Users.ToListAsync();
         }
 
-        // GET: api/TaskManager/5
+        // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Users>> GetUsers(Guid id)
         {
@@ -41,8 +41,9 @@ namespace Task_manager.Controllers
             return users;
         }
 
-        // PUT: api/TaskManager/5
+        // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // TODO: Include and update updated_at field for user. Should only update that field.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUsers(Guid id, Users users)
         {
@@ -72,7 +73,7 @@ namespace Task_manager.Controllers
             return NoContent();
         }
 
-        // POST: api/TaskManager
+        // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Users>> PostUsers(Users users)
@@ -83,7 +84,7 @@ namespace Task_manager.Controllers
             return CreatedAtAction("GetUsers", new { id = users.Id }, users);
         }
 
-        // DELETE: api/TaskManager/5
+        // DELETE: api/Users/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUsers(Guid id)
         {
