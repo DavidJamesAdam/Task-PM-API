@@ -1,5 +1,16 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Task_manager.Models;
+
+[Table("projects")]
 public class Projects
 {
+    [Column("id")]
     public Guid Id { get; set; }
+    [Column("project_name")]
     public required string ProjectName { get; set;}
+    [Column("user_id")]
+    public required Users Users { get; set; }
+    public ICollection<Tasks> Tasks { get; } = new List<Tasks>();
+    // Relation
 }

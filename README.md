@@ -31,3 +31,6 @@ Basic CRUD interface using .NET (ASP.NET Code), RESTful APIs, and PostgreSQL to 
 # Resources
 ## File structure guide
 - https://medium.com/@speedcodelabs/structuring-your-net-core-api-best-practices-and-common-folder-structure-3c05ee298e5a
+
+## Databse Migrations
+https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/managing?tabs=dotnet-core-cli
