@@ -1,17 +1,15 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace Task_manager.Models;
 
 [Table("users")]
-public class Users
+public class Users : IdentityUser<Guid>
 {
-    [Column("id")]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Guid Id{ get; set;}
     [Column("fname")]
-    public required string Fname{ get; set; }
+    public string? Fname{ get; set; }
     [Column("lname")]
-    public required string Lname{ get; set; }
+    public string? Lname{ get; set; }
     [Column("created_at")]
     public DateTime Created_at { get; set; } = DateTime.UtcNow;
     [Column("deleted_at")]

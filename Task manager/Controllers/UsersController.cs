@@ -2,22 +2,28 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Task_manager.Models;
+using Task_manager.DTOs;
 
 namespace Task_manager.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
         private readonly TaskContext _context;
+        private readonly UserManager<Users> _userManager;
 
-        public UsersController(TaskContext context)
+        public UsersController(TaskContext context, UserManager<Users> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: api/Users
@@ -76,12 +82,23 @@ namespace Task_manager.Controllers
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Users>> PostUsers(Users users)
+        [AllowAnonymous]
+        public async Task<ActionResult<Users>> PostUsers(RegisterDto dto)
         {
-            _context.Users.Add(users);
-            await _context.SaveChangesAsync();
+            var user = new Users
+            {
+                UserName = dto.Email,
+                Email = dto.Email,
+                Fname = dto.Fname,
+                Lname = dto.Lname
+            };
 
-            return CreatedAtAction("GetUsers", new { id = users.Id }, users);
+            var result = await _userManager.CreateAsync(user, dto.Password);
+
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
+
+            return CreatedAtAction("GetUsers", new { id = user.Id }, user);
         }
 
         // DELETE: api/Users/5
