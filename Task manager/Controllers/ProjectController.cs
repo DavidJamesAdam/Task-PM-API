@@ -79,6 +79,8 @@ namespace Task_manager.Controllers
         [HttpPost]
         public async Task<ActionResult<Projects>> PostProjects(Projects projects)
         {
+            string? userInfo = Request.Cookies["UserIdentifier"];
+            Console.WriteLine(userInfo);
             _context.Projects.Add(projects);
             await _context.SaveChangesAsync();
 
