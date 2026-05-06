@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Scalar.AspNetCore;
 
-var builder = WebApplication.CreateBuilder();
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -15,7 +15,11 @@ builder.Services.AddDbContext<TaskContext>(options =>
     options.UseNpgsql(connectionString));
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<Users>()
+    .AddRoles<IdentityRole<Guid>>()
     .AddEntityFrameworkStores<TaskContext>();
+// builder.Services.AddIdentity<Users, IdentityRole<Guid>>()
+//     .AddEntityFrameworkStores<TaskContext>()
+//     .AddDefaultTokenProviders();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
@@ -23,11 +27,22 @@ var app = builder.Build();
 // Map Identity Endpoints
 app.MapGroup("/api/auth").MapIdentityApi<Users>().WithTags("Auth");
 
+var command = args.FirstOrDefault();
+
+if (command == "seed")
+{
+    using var scope = app.Services.CreateScope();
+    await DatabaseSeeder.SeedAsync(scope.ServiceProvider);
+
+    Console.WriteLine("Seeding complete");
+    return;
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
-    app.MapScalarApiReference(); // http://localhost:5035/scalar/v1 to view documentation
+  app.MapOpenApi();
+  app.MapScalarApiReference(); // http://localhost:5035/scalar/v1 to view documentation
 }
 
 app.UseHttpsRedirection();
