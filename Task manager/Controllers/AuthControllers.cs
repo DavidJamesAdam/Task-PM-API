@@ -1,14 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Task_manager.Models;
-using Task_manager.DTOs;
 
 namespace Task_manager.Controllers
 {
@@ -18,11 +9,11 @@ namespace Task_manager.Controllers
 
   public class AuthController : ControllerBase
   {
-        private readonly SignInManager<Users> _signInManager;
+        private readonly IAuthService _authService;
 
-        public AuthController(SignInManager<Users> signInManager)
+        public AuthController(IAuthService authService)
         {
-            _signInManager = signInManager;
+            _authService = authService;
         }
 
         // POST: auth/logout
@@ -30,8 +21,8 @@ namespace Task_manager.Controllers
         [Authorize]
         public async Task<ActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
-            return Ok(new { message = "Logged out successfully" });
+            await _authService.LogoutAsync();
+            return NoContent();
         }
   }
 }

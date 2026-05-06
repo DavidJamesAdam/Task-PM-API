@@ -12,6 +12,8 @@ public class Users : IdentityUser<Guid>
     public string? Lname{ get; set; }
     [Column("created_at")]
     public DateTime Created_at { get; set; } = DateTime.UtcNow;
+    [Column("updated_at")]
+    public DateTime? Updated_at { get; set; }
     [Column("deleted_at")]
     public DateTime? Deleted_at { get; set; }
     public ICollection<Projects> Projects { get; } = new List<Projects>();

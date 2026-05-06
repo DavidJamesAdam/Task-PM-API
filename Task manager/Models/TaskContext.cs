@@ -6,8 +6,17 @@ namespace Task_manager.Models;
 
 public class TaskContext : IdentityDbContext<Users, IdentityRole<Guid>, Guid>
 {
-    public TaskContext(DbContextOptions<TaskContext> options) : base(options) { }
+  public TaskContext(DbContextOptions<TaskContext> options) : base(options) { }
 
-    public DbSet<Projects> Projects { get; set; } = null!;
-    public DbSet<Tasks> Tasks { get; set; } = null!;
+  protected override void OnModelCreating(ModelBuilder modelBuilder)
+  {
+    base.OnModelCreating(modelBuilder);
+
+    modelBuilder.Entity<Users>()
+        .HasQueryFilter(u => u.Deleted_at == null);
+  }
+
+  public DbSet<Projects> Projects { get; set; } = null!;
+  public DbSet<Tasks> Tasks { get; set; } = null!;
 }
+

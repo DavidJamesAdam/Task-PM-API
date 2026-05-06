@@ -16,6 +16,8 @@ builder.Services.AddDbContext<TaskContext>(options =>
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<Users>()
     .AddEntityFrameworkStores<TaskContext>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 // Map Identity Endpoints
