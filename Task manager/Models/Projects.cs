@@ -11,7 +11,8 @@ public class Projects
     [Column("project_name")]
     public required string ProjectName { get; set;}
     [Column("user_id")]
-    public required Users Users { get; set; }
+    public required Guid UserId { get; set; }
+    public Users User { get; set; } = null!;
     public ICollection<Tasks> Tasks { get; } = new List<Tasks>();
     // Relation
 }

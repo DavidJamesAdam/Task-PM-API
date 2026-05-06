@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Task_manager.Models;
+using Microsoft.AspNetCore.Mvc.ControllerBase;
 
 namespace Task_manager.Controllers
 {
@@ -17,9 +18,12 @@ namespace Task_manager.Controllers
     {
         private readonly TaskContext _context;
 
-        public ProjectController(TaskContext context)
+        private readonly IProjectService _projectService;
+
+        public ProjectController(TaskContext context, IProjectService projectService)
         {
             _context = context;
+            _projectService = projectService;
         }
 
         // GET: api/Project
@@ -77,12 +81,9 @@ namespace Task_manager.Controllers
         // POST: api/Project
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Projects>> PostProjects(Projects projects)
+        public async Task<ActionResult<CreateProjectDto>> CreateProject(CreateProjectDto dto)
         {
-            // string? userInfo = User.FindFirst(ClaimTypes.Email)?.Value;
-            // Console.WriteLine(userInfo);
-            _context.Projects.Add(projects);
-            await _context.SaveChangesAsync();
+            var result = await _projectService.CreateProjectAsync(dto);
 
             return CreatedAtAction("GetProjects", new { id = projects.Id }, projects);
         }
