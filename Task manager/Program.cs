@@ -22,6 +22,7 @@ builder.Services.AddIdentityApiEndpoints<Users>()
 //     .AddDefaultTokenProviders();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITaskInterface, TaskService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();

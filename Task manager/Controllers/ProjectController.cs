@@ -15,13 +15,10 @@ namespace Task_manager.Controllers
   [ApiController]
   public class ProjectController : ControllerBase
   {
-    private readonly TaskContext _context;
-
     private readonly IProjectService _projectService;
 
-    public ProjectController(TaskContext context, IProjectService projectService)
+    public ProjectController(IProjectService projectService)
     {
-      _context = context;
       _projectService = projectService;
     }
 
@@ -36,7 +33,7 @@ namespace Task_manager.Controllers
 
     // GET: api/Project/5
     [HttpGet("{id}")]
-    public async Task<ActionResult<Projects>> GetProjects(Guid id)
+    public async Task<ActionResult<Projects>> GetProjectById(Guid id)
     {
       var projects = await _projectService.GetProjectByIdAsync(id);
 
