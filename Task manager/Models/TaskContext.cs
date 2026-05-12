@@ -14,6 +14,12 @@ public class TaskContext : IdentityDbContext<Users, IdentityRole<Guid>, Guid>
 
     modelBuilder.Entity<Users>()
         .HasQueryFilter(u => u.Deleted_at == null);
+
+    modelBuilder.Entity<Projects>()
+        .HasQueryFilter(p => p.Deleted_at == null);
+
+    modelBuilder.Entity<Tasks>()
+        .HasQueryFilter(t => t.Deleted_at == null);
   }
 
   public DbSet<Projects> Projects { get; set; } = null!;

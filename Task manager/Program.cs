@@ -22,6 +22,10 @@ builder.Services.AddIdentityApiEndpoints<Users>()
 //     .AddDefaultTokenProviders();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 // Map Identity Endpoints
@@ -45,6 +49,7 @@ if (app.Environment.IsDevelopment())
   app.MapScalarApiReference(); // http://localhost:5035/scalar/v1 to view documentation
 }
 
+app.UseExceptionHandler();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

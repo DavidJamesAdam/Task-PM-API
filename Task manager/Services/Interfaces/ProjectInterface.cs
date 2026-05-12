@@ -2,9 +2,9 @@ using Task_manager.DTOs;
 
 public interface IProjectService
 {
-  // Task<ProjectResponseDto> GetProjectsAsync();
-  // Task<ProjectResponseDto> GetProjectByIdAsync(Guid id);
-  // Task<ProjectResponseDto> UpdateProjectAsync(Guid id);
-  Task<CreateProjectDto> CreateProjectAsync(CreateProjectDto dto);
-  // Task<ProjectResponseDto> DeleteProjectAsync(Guid id);
+  Task<IEnumerable<ProjectResponseDto>> GetProjectsAsync();
+  Task<ProjectResponseDto?> GetProjectByIdAsync(Guid id);
+  Task<bool> UpdateProjectAsync(Guid id, UpdateProjectDto dto);
+  Task<CreateProjectResultDto> CreateProjectAsync(CreateProjectDto dto);
+  Task<bool> DeleteProjectAsync(Guid id);
 }

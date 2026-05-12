@@ -12,6 +12,8 @@ public class Projects
     public required string ProjectName { get; set;}
     [Column("user_id")]
     public required Guid UserId { get; set; }
+    [Column("deleted_at")]
+    public DateTime? Deleted_at { get; set; }
     public Users User { get; set; } = null!;
     public ICollection<Tasks> Tasks { get; } = new List<Tasks>();
     // Relation

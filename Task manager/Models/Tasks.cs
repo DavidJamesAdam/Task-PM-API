@@ -12,6 +12,8 @@ public class Tasks
   public required string TaskName { get; set; }
   [Column("project_id")]
   public required Guid ProjectId { get; set; }
+      [Column("deleted_at")]
+  public DateTime? Deleted_at { get; set; }
   public required Projects Projects { get; set; }
   [Column("user_id")]
   public required Guid UserId { get; set; }
