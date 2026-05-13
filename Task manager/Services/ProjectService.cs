@@ -5,6 +5,7 @@ using Task_manager.Models;
 using Task_manager.DTOs;
 using System.Security.Claims;
 using Task_manager.Exceptions;
+using Microsoft.IdentityModel.Tokens;
 
 public class ProjectService : IProjectService
 {
@@ -41,6 +42,27 @@ public class ProjectService : IProjectService
     }).FirstOrDefaultAsync() ?? throw new NotFoundException("Project not found");
 
     return project;
+  }
+
+  public async Task<IEnumerable<TaskResponseDto>> GetTasksByProjectIdAsync(Guid project_id)
+  {
+    var projectExists = await _context.Projects
+    .AnyAsync(p => p.Id == project_id && p.Deleted_at == null);
+
+    if (!projectExists)
+    {
+      throw new NotFoundException("Project not found");
+    }
+
+    var tasks = await _context.Tasks.Where(p => p.ProjectId == project_id).Select(t => new TaskResponseDto
+    {
+      Id = t.Id,
+      Task_name = t.TaskName,
+      UserId = t.UserId,
+      ProjectId = t.ProjectId
+    }).ToListAsync();
+
+    return tasks;
   }
 
   public async Task<CreateProjectResultDto> CreateProjectAsync(CreateProjectDto dto)

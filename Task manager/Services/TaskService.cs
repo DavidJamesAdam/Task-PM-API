@@ -10,11 +10,13 @@ public class TaskService : ITaskInterface
 {
   private readonly TaskContext _context;
   private readonly IHttpContextAccessor _httpContextAccessor;
+  private readonly ILogger<TaskService> _logger;
 
-  public TaskService(TaskContext context, IHttpContextAccessor httpContextAccessor)
+  public TaskService(TaskContext context, IHttpContextAccessor httpContextAccessor, ILogger<TaskService> logger)
   {
     _context = context;
     _httpContextAccessor = httpContextAccessor;
+    _logger = logger;
   }
 
   public async Task<IEnumerable<TaskResponseDto>> GetTasksAsync()
@@ -45,7 +47,7 @@ public class TaskService : ITaskInterface
     return Task;
   }
 
-  public async Task<CreateTaskResultDto> CreateTaskAsync(CreateTaskDto dto)
+  public async Task<CreateTaskResultDto> CreateTaskAsync(Guid project_id, CreateTaskDto dto)
   {
     string? userString = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
     if (userString == null)
@@ -65,14 +67,20 @@ public class TaskService : ITaskInterface
       throw new ConflictException("A Task with this name already exists");
     }
 
+    var projectExists = await _context.Projects.AnyAsync(p => p.Id == project_id && p.Deleted_at == null);
+    if (!projectExists)
+    {
+      throw new NotFoundException("Project not found");
+    }
+
     Guid userGuid = Guid.Parse(userString);
 
     var Task = new Tasks
     {
       TaskName = dto.Task_name,
-      UserId = userGuid
+      UserId = userGuid,
+      ProjectId = project_id
     };
-
 
     _context.Tasks.Add(Task);
     var result = await _context.SaveChangesAsync();
@@ -84,7 +92,8 @@ public class TaskService : ITaskInterface
       {
         Id = Task.Id,
         Task_name = Task.TaskName,
-        UserId = Task.UserId
+        UserId = Task.UserId,
+        ProjectId = Task.ProjectId
       }
     };
   }

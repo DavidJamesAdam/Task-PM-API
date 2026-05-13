@@ -40,6 +40,14 @@ namespace Task_manager.Controllers
       return Ok(projects);
     }
 
+    [HttpGet("{project_id}/tasks")]
+        public async Task<ActionResult<Tasks>> GetTasksByProjectId(Guid project_id)
+    {
+      var projects = await _projectService.GetTasksByProjectIdAsync(project_id);
+
+      return Ok(projects);
+    }
+
     // PUT: api/Project/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPatch("{id}")]

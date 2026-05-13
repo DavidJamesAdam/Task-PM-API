@@ -39,9 +39,9 @@ namespace Task_manager.Controllers
       return Ok(tasks);
     }
 
-    // PUT: api/Task/5
+    // PATCH: api/Task/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPut("{id}")]
+    [HttpPatch("{id}")]
     public async Task<IActionResult> PutTasks(Guid id, UpdateTaskDto dto)
     {
       await _taskInterface.UpdateTaskAsync(id, dto);
@@ -51,10 +51,10 @@ namespace Task_manager.Controllers
 
     // POST: api/Task
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPost]
-    public async Task<ActionResult<Tasks>> PostTasks(CreateTaskDto dto)
+    [HttpPost("{project_id}")]
+    public async Task<ActionResult<Tasks>> PostTasks(Guid project_id, CreateTaskDto dto)
     {
-      var response = await _taskInterface.CreateTaskAsync(dto);
+      var response = await _taskInterface.CreateTaskAsync(project_id, dto);
 
       return CreatedAtAction("GetTasks", new { id = response.Task?.Id }, response);
     }

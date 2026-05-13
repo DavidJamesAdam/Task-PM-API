@@ -11,6 +11,7 @@ public class Projects
     [Column("project_name")]
     public required string ProjectName { get; set;}
     [Column("user_id")]
+    [ForeignKey("Users")]
     public required Guid UserId { get; set; }
     [Column("deleted_at")]
     public DateTime? Deleted_at { get; set; }
