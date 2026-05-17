@@ -111,6 +111,7 @@ public class TaskService : ITaskInterface
     }
 
     Task.TaskName = dto.Task_name;
+    Task.Updated_at = DateTime.UtcNow;
 
     await _context.SaveChangesAsync();
 

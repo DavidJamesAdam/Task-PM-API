@@ -122,6 +122,7 @@ public class ProjectService : IProjectService
     }
 
     project.ProjectName = dto.Project_name;
+    project.Updated_at = DateTime.UtcNow;
 
     await _context.SaveChangesAsync();
 

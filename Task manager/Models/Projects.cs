@@ -13,6 +13,10 @@ public class Projects
     [Column("user_id")]
     [ForeignKey("Users")]
     public required Guid UserId { get; set; }
+    [Column("created_at")]
+    public DateTime? Created_at { get; set; }
+    [Column("updated_at")]
+    public DateTime? Updated_at { get; set; }
     [Column("deleted_at")]
     public DateTime? Deleted_at { get; set; }
     public Users User { get; set; } = null!;
