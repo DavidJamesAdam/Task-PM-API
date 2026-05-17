@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Task_manager.Models;
 using Task_manager.DTOs;
+using Task_manager.Exceptions;
 
 public class UserService : IUserService
 {
@@ -39,25 +40,14 @@ public class UserService : IUserService
       Email = u.Email!,
       Fname = u.Fname!,
       Lname = u.Lname!
-    }).FirstOrDefaultAsync();
-
-    // TODO: Implement throw new NotFoundException(); if user not found
-    // if (user == null)
-    // {
-    //   throw new NotFoundException();
-    // }
+    }).FirstOrDefaultAsync() ?? throw new NotFoundException("User not found");;
 
     return user;
   }
 
   public async Task<bool> UpdateUserAsync(Guid id, UpdateUserDto dto)
   {
-    var user = await _context.Users.FindAsync(id);
-
-    if (user == null)
-    {
-      return false;
-    }
+    var user = await _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync() ?? throw new NotFoundException("User not found");
 
     user.Fname = dto.Fname;
     user.Lname = dto.Lname;
@@ -107,14 +97,10 @@ public class UserService : IUserService
   }
 
   public async Task<bool> DeleteUserAsync(Guid id) {
-      var users = await _context.Users.FindAsync(id);
-      if (users == null)
-      {
-        return false;
-      }
+      var users = await _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync() ?? throw new NotFoundException("User not found");
 
       users.Deleted_at = DateTime.UtcNow;
-      
+
       await _context.SaveChangesAsync();
 
       return true;

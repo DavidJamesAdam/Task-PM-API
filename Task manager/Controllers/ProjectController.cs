@@ -40,6 +40,8 @@ namespace Task_manager.Controllers
       return Ok(projects);
     }
 
+    // GET: api/Project/5/tasks
+    // Get all tasks for a specific project
     [HttpGet("{project_id}/tasks")]
         public async Task<ActionResult<Tasks>> GetTasksByProjectId(Guid project_id)
     {

@@ -39,11 +39,6 @@ namespace Task_manager.Controllers
     {
       var user = await _userService.GetUserByIdAsync(id);
 
-      if (user == null)
-      {
-        return NotFound();
-      }
-
       return Ok(user);
     }
 
@@ -53,11 +48,6 @@ namespace Task_manager.Controllers
     public async Task<IActionResult> UpdateUser(Guid id, UpdateUserDto dto)
     {
       var updated = await _userService.UpdateUserAsync(id, dto);
-
-      if (!updated)
-      {
-        return NotFound();
-      }
 
       return NoContent();
     }
@@ -91,19 +81,9 @@ namespace Task_manager.Controllers
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteUser(Guid id)
     {
-
-      var user = await _userService.DeleteUserAsync(id);
-      if (!user)
-      {
-        return NotFound();
-      }
+      await _userService.DeleteUserAsync(id);
 
       return NoContent();
     }
-
-    // private bool UsersExists(Guid id)
-    // {
-    //   return _context.Users.Any(e => e.Id == id);
-    // }
   }
 }
