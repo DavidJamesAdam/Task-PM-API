@@ -1,19 +1,25 @@
+using System.ComponentModel.DataAnnotations;
+
 public class TaskResponseDto
 {
-  public required Guid Id{ get; set;}
-  public required string Task_name{ get; set; }
-  public required Guid ProjectId{ get; set; }
-  public required Guid UserId{ get; set; }
+  public required Guid Id { get; set; }
+  public required string Task_name { get; set; }
+  public required Guid ProjectId { get; set; }
+  public required Guid UserId { get; set; }
 }
 
 public class CreateTaskDto
 {
-  public required string Task_name{ get; set;}
+  [Required(ErrorMessage = "Task name is required")]
+  [StringLength(200, MinimumLength = 1, ErrorMessage = "Task name must be between 1 and 200 characters")]
+  public required string Task_name { get; set; }
 }
 
 public class UpdateTaskDto
 {
-  public required string Task_name{ get; set;}
+  [Required(ErrorMessage = "Task name is required")]
+  [StringLength(200, MinimumLength = 1, ErrorMessage = "Task name must be between 1 and 200 characters")]
+  public required string Task_name { get; set; }
 }
 
 public class CreateTaskResultDto
