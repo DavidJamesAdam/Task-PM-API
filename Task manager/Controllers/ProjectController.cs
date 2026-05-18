@@ -43,11 +43,20 @@ namespace Task_manager.Controllers
     // GET: api/Project/5/tasks
     // Get all tasks for a specific project
     [HttpGet("{project_id}/tasks")]
-        public async Task<ActionResult<Tasks>> GetTasksByProjectId(Guid project_id)
+    public async Task<ActionResult<Tasks>> GetTasksByProjectId(Guid project_id)
     {
       var projects = await _projectService.GetTasksByProjectIdAsync(project_id);
 
       return Ok(projects);
+    }
+
+    // GET: api/Project/me
+    [HttpGet("me")]
+    public async Task<ActionResult<Projects>> GetProjectsForCurrentUser()
+    {
+      var currentUserProjects = await _projectService.GetProjectsForCurrentUserAsync();
+
+      return Ok(currentUserProjects);
     }
 
     // PUT: api/Project/5

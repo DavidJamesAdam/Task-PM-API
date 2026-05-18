@@ -40,7 +40,7 @@ public class UserService : IUserService
       Email = u.Email!,
       Fname = u.Fname!,
       Lname = u.Lname!
-    }).FirstOrDefaultAsync() ?? throw new NotFoundException("User not found");;
+    }).FirstOrDefaultAsync() ?? throw new NotFoundException("User not found");
 
     return user;
   }

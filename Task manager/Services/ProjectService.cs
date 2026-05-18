@@ -20,11 +20,11 @@ public class ProjectService : IProjectService
 
   public async Task<IEnumerable<ProjectResponseDto>> GetProjectsAsync()
   {
-    var projects = await _context.Projects.Select(u => new ProjectResponseDto
+    var projects = await _context.Projects.Select(p => new ProjectResponseDto
     {
-      Id = u.Id,
-      Project_name = u.ProjectName,
-      UserId = u.UserId,
+      Id = p.Id,
+      Project_name = p.ProjectName,
+      UserId = p.UserId,
     }).ToListAsync();
 
     return projects;
@@ -63,6 +63,22 @@ public class ProjectService : IProjectService
     }).ToListAsync();
 
     return tasks;
+  }
+
+  public async Task<IEnumerable<ProjectResponseDto?>> GetProjectsForCurrentUserAsync()
+  {
+    string? userString = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+    Guid userGuid = Guid.Parse(userString!);
+
+    var userProjects = await _context.Projects.Where(p => p.UserId == userGuid).Select(p => new ProjectResponseDto
+    {
+      Id = p.Id,
+      Project_name = p.ProjectName,
+      UserId = p.UserId,
+    }).ToListAsync();
+
+    return userProjects;
   }
 
   public async Task<CreateProjectResultDto> CreateProjectAsync(CreateProjectDto dto)
