@@ -39,6 +39,15 @@ namespace Task_manager.Controllers
       return Ok(tasks);
     }
 
+    // GET: api/Task/me
+    [HttpGet("me")]
+    public async Task<ActionResult<IEnumerable<TaskResponseDto>>> GetCreatedTasksForCurrentUser()
+    {
+      var createdTasks = await _taskInterface.GetCreatedTasksForCurrentUserAsync();
+
+      return Ok(createdTasks);
+    }
+
     // PATCH: api/Task/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPatch("{id}")]

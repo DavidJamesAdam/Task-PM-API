@@ -47,6 +47,23 @@ public class TaskService : ITaskInterface
     return Task;
   }
 
+  public async Task<IEnumerable<TaskResponseDto?>> GetCreatedTasksForCurrentUserAsync()
+  {
+    string? userString = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+    Guid userGuid = Guid.Parse(userString!);
+
+    var userCreatedTasks = await _context.Tasks.Where(t => t.UserId == userGuid).Select(t => new TaskResponseDto
+    {
+      Id = t.Id,
+      Task_name = t.TaskName,
+      UserId = t.UserId,
+      ProjectId = t.ProjectId
+    }).ToListAsync();
+
+    return userCreatedTasks;
+  }
+
   public async Task<CreateTaskResultDto> CreateTaskAsync(Guid project_id, CreateTaskDto dto)
   {
     string? userString = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
