@@ -14,7 +14,7 @@ public class Projects
     [ForeignKey("Users")]
     public required Guid UserId { get; set; }
     [Column("created_at")]
-    public DateTime? Created_at { get; set; }
+    public DateTime? Created_at { get; set; }  = DateTime.UtcNow;
     [Column("updated_at")]
     public DateTime? Updated_at { get; set; }
     [Column("deleted_at")]
