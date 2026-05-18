@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Task_manager.Models;
@@ -11,9 +12,11 @@ using Task_manager.Models;
 namespace Task_manager.Migrations
 {
     [DbContext(typeof(TaskContext))]
-    partial class TaskContextModelSnapshot : ModelSnapshot
+    [Migration("20260518193011_AddedAssingedToAndTaskStatusForTaskModel")]
+    partial class AddedAssingedToAndTaskStatusForTaskModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -194,9 +197,13 @@ namespace Task_manager.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<Guid?>("AssignedTo")
+                    b.Property<Guid>("AssignedTo")
                         .HasColumnType("uuid")
                         .HasColumnName("assigned_to");
+
+                    b.Property<bool>("Completed")
+                        .HasColumnType("boolean")
+                        .HasColumnName("completed");
 
                     b.Property<DateTime?>("Created_at")
                         .HasColumnType("timestamp with time zone")
@@ -206,21 +213,22 @@ namespace Task_manager.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("deleted_at");
 
+                    b.Property<bool>("InProgress")
+                        .HasColumnType("boolean")
+                        .HasColumnName("in_progress");
+
                     b.Property<Guid>("ProjectId")
                         .HasColumnType("uuid")
                         .HasColumnName("project_id");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("text")
-                        .HasDefaultValue("Todo")
-                        .HasColumnName("status");
 
                     b.Property<string>("TaskName")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("task_name");
+
+                    b.Property<bool>("Todo")
+                        .HasColumnType("boolean")
+                        .HasColumnName("todo");
 
                     b.Property<DateTime?>("Updated_at")
                         .HasColumnType("timestamp with time zone")

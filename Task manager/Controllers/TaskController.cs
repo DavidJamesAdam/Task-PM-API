@@ -76,5 +76,23 @@ namespace Task_manager.Controllers
 
       return NoContent();
     }
+
+    // PATCH: api/Task/5/assign
+    [HttpPatch("{task_id}/assign")]
+    public async Task<IActionResult> AssignTask(Guid task_id, AssignTaskDto dto)
+    {
+      await _taskInterface.AssignTaskAsync(task_id, dto);
+
+      return NoContent();
+    }
+
+    // PATCH: api/Task/5/status
+    [HttpPatch("{task_id}/status")]
+    public async Task<IActionResult> AssignTask(Guid task_id, UpdateStatusDto dto)
+    {
+      await _taskInterface.UpdateStatusOfTaskAsync(task_id, dto);
+
+      return NoContent();
+    }
   }
 }

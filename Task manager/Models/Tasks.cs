@@ -2,6 +2,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Task_manager.Models;
 
+public enum TaskStatus { Todo, InProgress, Done }
+
 [Table("tasks")]
 public class Tasks
 {
@@ -10,6 +12,10 @@ public class Tasks
   public Guid Id { get; set; }
   [Column("task_name")]
   public required string TaskName { get; set; }
+  [Column("assigned_to")]
+  public Guid? AssignedTo { get; set; }
+  [Column("status")]
+  public TaskStatus Status { get; set; } = TaskStatus.Todo;
   [Column("project_id")]
   [ForeignKey("Projects")]
   public required Guid ProjectId { get; set; }

@@ -25,6 +25,8 @@ public class TaskService : ITaskInterface
     {
       Id = t.Id,
       Task_name = t.TaskName,
+      AssignedTo = t.AssignedTo,
+      Status = t.Status,
       UserId = t.UserId,
       ProjectId = t.ProjectId
     }).ToListAsync();
@@ -40,6 +42,8 @@ public class TaskService : ITaskInterface
     {
       Id = t.Id,
       Task_name = t.TaskName,
+      AssignedTo = t.AssignedTo,
+      Status = t.Status,
       UserId = t.UserId,
       ProjectId = t.ProjectId
     }).FirstOrDefaultAsync() ?? throw new NotFoundException("Task not found");
@@ -57,6 +61,8 @@ public class TaskService : ITaskInterface
     {
       Id = t.Id,
       Task_name = t.TaskName,
+      AssignedTo = t.AssignedTo,
+      Status = t.Status,
       UserId = t.UserId,
       ProjectId = t.ProjectId
     }).ToListAsync();
@@ -96,7 +102,9 @@ public class TaskService : ITaskInterface
     {
       TaskName = dto.Task_name,
       UserId = userGuid,
-      ProjectId = project_id
+      ProjectId = project_id,
+      AssignedTo = null,
+      Status = Task_manager.Models.TaskStatus.Todo,
     };
 
     _context.Tasks.Add(Task);
@@ -109,6 +117,8 @@ public class TaskService : ITaskInterface
       {
         Id = Task.Id,
         Task_name = Task.TaskName,
+        AssignedTo = Task.AssignedTo,
+        Status = Task.Status,
         UserId = Task.UserId,
         ProjectId = Task.ProjectId
       }
@@ -144,5 +154,32 @@ public class TaskService : ITaskInterface
     await _context.SaveChangesAsync();
 
     return true;
+  }
+
+  public async Task AssignTaskAsync(Guid task_id, AssignTaskDto dto)
+  {
+    var user = await _context.Users.Where(u => u.Id == dto.UserId).FirstOrDefaultAsync() ?? throw new NotFoundException("User not found");
+
+    var task = await _context.Tasks.Where(t => t.Id == task_id).FirstOrDefaultAsync() ?? throw new NotFoundException("Task not found");
+
+    task.AssignedTo = dto.UserId;
+    task.Updated_at = DateTime.UtcNow;
+    await _context.SaveChangesAsync();
+  }
+
+  public async Task UpdateStatusOfTaskAsync(Guid task_id, UpdateStatusDto dto)
+  {
+    var task = await _context.Tasks.Where(t => t.Id == task_id).FirstOrDefaultAsync() ?? throw new NotFoundException("Task not found");
+
+    _logger.LogInformation("Status: {Status}", dto.Status);
+
+    if (!Enum.TryParse<Task_manager.Models.TaskStatus>(dto.Status, true, out var status))
+    {
+      throw new ArgumentException("Invalid status");
+    }
+
+    task.Status = status;
+    task.Updated_at = DateTime.UtcNow;
+    await _context.SaveChangesAsync();
   }
 }

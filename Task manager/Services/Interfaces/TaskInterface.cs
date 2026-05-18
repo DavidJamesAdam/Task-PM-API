@@ -6,4 +6,6 @@ public interface ITaskInterface
   Task<bool> UpdateTaskAsync(Guid id, UpdateTaskDto dto);
   Task<CreateTaskResultDto> CreateTaskAsync(Guid project_id, CreateTaskDto dto);
   Task<bool> DeleteTaskAsync(Guid id);
+  Task AssignTaskAsync(Guid task_id, AssignTaskDto dto);
+  Task UpdateStatusOfTaskAsync(Guid task_id, UpdateStatusDto dto);
 }

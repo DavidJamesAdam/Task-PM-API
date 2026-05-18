@@ -58,6 +58,8 @@ public class ProjectService : IProjectService
     {
       Id = t.Id,
       Task_name = t.TaskName,
+      AssignedTo = t.AssignedTo,
+      Status = t.Status,
       UserId = t.UserId,
       ProjectId = t.ProjectId
     }).ToListAsync();

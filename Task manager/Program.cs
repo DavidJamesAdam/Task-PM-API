@@ -3,6 +3,8 @@ using Task_manager.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Scalar.AspNetCore;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,12 @@ builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
+builder.Services.AddControllers()
+  .AddJsonOptions(opts =>
+    opts.JsonSerializerOptions.Converters.Add(
+      new JsonStringEnumConverter(JsonNamingPolicy.CamelCase, allowIntegerValues: false)
+    )
+  );
 
 var app = builder.Build();
 // Map Identity Endpoints

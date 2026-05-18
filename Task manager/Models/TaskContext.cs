@@ -20,6 +20,11 @@ public class TaskContext : IdentityDbContext<Users, IdentityRole<Guid>, Guid>
 
     modelBuilder.Entity<Tasks>()
         .HasQueryFilter(t => t.Deleted_at == null);
+
+    modelBuilder.Entity<Tasks>()
+      .Property(t => t.Status)
+      .HasConversion<string>()
+      .HasDefaultValue(TaskStatus.Todo);
   }
 
   public DbSet<Projects> Projects { get; set; } = null!;
